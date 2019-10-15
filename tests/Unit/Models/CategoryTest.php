@@ -2,10 +2,8 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
 use App\Models\Category;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CategoryTest extends TestCase
 {
