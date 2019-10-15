@@ -1,0 +1,58 @@
+<?php
+
+namespace Tests\Feature\Categories;
+
+use Tests\TestCase;
+use App\Models\Category;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class CategoryIndexTest extends TestCase
+{
+    /** @test */
+    public function it_returns_a_collection_of_categories()
+    {
+        $categories = factory(Category::class, 2)->create();
+
+        $this->get('api/categories')
+            ->assertJsonFragment(
+                [
+                    'slug' => $categories->get(0)->slug
+                ],
+                [
+                    'slug' => $categories->get(1)->slug
+                ]
+            );
+    }
+
+    /** @test */
+    public function it_returns_only_parent_categories()
+    {
+        $category = factory(Category::class)->create();
+
+        $category->children()->save(
+            factory(Category::class)->create()
+        );
+
+        $this->get('api/categories')
+            ->assertJsonCount(1, 'data');
+    }
+
+    /** @test */
+    public function it_returns_categories_ordered_in_the_given_order()
+    {
+        $category = factory(Category::class)->create([
+            'order' => 2
+        ]);
+
+        $anotherCategory = factory(Category::class)->create([
+            'order' => 1
+        ]);
+
+        $response = $this->get('api/categories');
+
+        $response->assertSeeInOrder([
+            $anotherCategory->slug, $category->slug
+        ]);
+    }
+}
