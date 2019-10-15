@@ -2,10 +2,8 @@
 
 namespace Tests\Feature\Categories;
 
-use Tests\TestCase;
 use App\Models\Category;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CategoryIndexTest extends TestCase
 {
@@ -17,10 +15,10 @@ class CategoryIndexTest extends TestCase
         $this->get('api/categories')
             ->assertJsonFragment(
                 [
-                    'slug' => $categories->get(0)->slug
+                    'slug' => $categories->get(0)->slug,
                 ],
                 [
-                    'slug' => $categories->get(1)->slug
+                    'slug' => $categories->get(1)->slug,
                 ]
             );
     }
@@ -42,17 +40,17 @@ class CategoryIndexTest extends TestCase
     public function it_returns_categories_ordered_in_the_given_order()
     {
         $category = factory(Category::class)->create([
-            'order' => 2
+            'order' => 2,
         ]);
 
         $anotherCategory = factory(Category::class)->create([
-            'order' => 1
+            'order' => 1,
         ]);
 
         $response = $this->get('api/categories');
 
         $response->assertSeeInOrder([
-            $anotherCategory->slug, $category->slug
+            $anotherCategory->slug, $category->slug,
         ]);
     }
 }
