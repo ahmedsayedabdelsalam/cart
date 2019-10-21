@@ -20,7 +20,7 @@ class ProductShowTest extends TestCase
         $product = factory(Product::class)->create();
         $this->get("api/products/$product->slug")
             ->assertJsonFragment([
-                'id' => $product->id
+                'id' => $product->id,
             ]);
     }
 }

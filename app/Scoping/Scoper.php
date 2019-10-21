@@ -2,9 +2,9 @@
 
 namespace App\Scoping;
 
-use Illuminate\Http\Request;
 use App\Scoping\Contracts\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 class Scoper
 {
