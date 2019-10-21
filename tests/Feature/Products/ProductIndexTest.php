@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Products;
 
-use Tests\TestCase;
 use App\Models\Product;
+use Tests\TestCase;
 
 class ProductIndexTest extends TestCase
 {
@@ -14,7 +14,7 @@ class ProductIndexTest extends TestCase
 
         $this->get('api/products')
             ->assertJsonFragment([
-                'id' => $product->id
+                'id' => $product->id,
             ]);
     }
 
