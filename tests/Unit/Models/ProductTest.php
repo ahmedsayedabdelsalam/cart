@@ -5,7 +5,6 @@ namespace Tests\Unit\Models;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductVariation;
-
 use Tests\TestCase;
 
 class ProductTest extends TestCase
