@@ -7,6 +7,7 @@ use Tests\TestCase;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductVariation;
+use App\Models\Stock;
 
 class ProductTest extends TestCase
 {
@@ -30,7 +31,7 @@ class ProductTest extends TestCase
     public function it_has_many_categories()
     {
         $this->product->categories()->save(
-            factory(Category::class)->create()
+            factory(Category::class)->make()
         );
 
         $this->assertInstanceOf(Category::class, $this->product->categories->first());
@@ -40,7 +41,7 @@ class ProductTest extends TestCase
     public function it_has_many_variations()
     {
         $this->product->variations()->save(
-            factory(ProductVariation::class)->create()
+            factory(ProductVariation::class)->make()
         );
 
         $this->assertInstanceOf(ProductVariation::class, $this->product->variations->first());
@@ -58,6 +59,38 @@ class ProductTest extends TestCase
         $product = factory(Product::class)->create([
             'price' => 1000
         ]);
-        $this->assertEquals($product->formattedPrice, '£10.00');
+        $this->assertEquals('£10.00', $product->formattedPrice);
+    }
+
+    /** @test */
+    public function it_can_get_stock_count()
+    {
+        $this->product->variations()->save(
+            $productVariation = factory(ProductVariation::class)->make()
+        );
+
+        $productVariation->stocks()->save(
+            factory(Stock::class)->make([
+                'quantity' => $quantitiy = 100
+            ])
+        );
+
+        $this->assertEquals($quantitiy, $this->product->stockCount());
+    }
+
+    /** @test */
+    public function it_cat_check_if_its_in_stock()
+    {
+        $this->product->variations()->save(
+            $productVariation = factory(ProductVariation::class)->make()
+        );
+
+        $productVariation->stocks()->save(
+            factory(Stock::class)->make([
+                'quantity' => 100
+            ])
+        );
+
+        $this->assertTrue($this->product->inStock());
     }
 }

@@ -29,7 +29,7 @@ class CategoryIndexTest extends TestCase
         $category = factory(Category::class)->create();
 
         $category->children()->save(
-            factory(Category::class)->create()
+            factory(Category::class)->make()
         );
 
         $this->get('api/categories')

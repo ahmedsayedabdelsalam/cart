@@ -14,7 +14,7 @@ class ProductScopingTest extends TestCase
         $product = factory(Product::class)->create();
 
         $product->categories()->save(
-            $category = factory(Category::class)->create()
+            $category = factory(Category::class)->make()
         );
 
         $anotherProduct = factory(Product::class)->create();

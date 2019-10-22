@@ -83,7 +83,7 @@ class ProductVariationTest extends TestCase
         $productVariation = factory(ProductVariation::class)->create();
 
         $productVariation->stocks()->save(
-            factory(Stock::class)->create()
+            factory(Stock::class)->make()
         );
 
         $this->assertInstanceOf(Stock::class, $productVariation->stocks->first());
@@ -107,7 +107,7 @@ class ProductVariationTest extends TestCase
         $productVariation = factory(ProductVariation::class)->create();
 
         $productVariation->stocks()->save(
-            factory(Stock::class)->create([
+            factory(Stock::class)->make([
                 'quantity' => $quantity = 10
             ])
         );
@@ -121,7 +121,7 @@ class ProductVariationTest extends TestCase
         $productVariation = factory(ProductVariation::class)->create();
 
         $productVariation->stocks()->save(
-            factory(Stock::class)->create([
+            factory(Stock::class)->make([
                 'quantity' => 10
             ])
         );
@@ -135,13 +135,13 @@ class ProductVariationTest extends TestCase
         $productVariation = factory(ProductVariation::class)->create();
 
         $productVariation->stocks()->save(
-            factory(Stock::class)->create([
+            factory(Stock::class)->make([
                 'quantity' => $quantity = 10
             ])
         );
 
         $productVariation->stocks()->save(
-            factory(Stock::class)->create([
+            factory(Stock::class)->make([
                 'quantity' => $anotherQuantity = 10
             ])
         );
@@ -157,7 +157,7 @@ class ProductVariationTest extends TestCase
         $productVariation = factory(ProductVariation::class)->create();
 
         $productVariation->stocks()->save(
-            factory(Stock::class)->create([
+            factory(Stock::class)->make([
                 'quantity' => 10
             ])
         );

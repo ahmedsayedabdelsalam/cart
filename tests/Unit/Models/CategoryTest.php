@@ -14,7 +14,7 @@ class CategoryTest extends TestCase
         $category = factory(Category::class)->create();
 
         $category->children()->save(
-            factory(Category::class)->create()
+            factory(Category::class)->make()
         );
 
         $this->assertInstanceOf(Category::class, $category->children->first());
@@ -26,7 +26,7 @@ class CategoryTest extends TestCase
         $category = factory(Category::class)->create();
 
         $category->children()->save(
-            factory(Category::class)->create()
+            factory(Category::class)->make()
         );
 
         $this->assertEquals(1, Category::parents()->count());
@@ -47,7 +47,7 @@ class CategoryTest extends TestCase
         $category = factory(Category::class)->create();
 
         $category->products()->save(
-            factory(Product::class)->create()
+            factory(Product::class)->make()
         );
 
         $this->assertInstanceOf(Product::class, $category->products->first());
