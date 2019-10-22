@@ -3,11 +3,11 @@
 namespace Tests\Unit\Models;
 
 use App\Cart\Money;
-use Tests\TestCase;
-use App\Models\Stock;
 use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\ProductVariationType;
+use App\Models\Stock;
+use Tests\TestCase;
 
 class ProductVariationTest extends TestCase
 {
@@ -43,7 +43,7 @@ class ProductVariationTest extends TestCase
     public function it_returns_a_formatted_price()
     {
         $productVariation = factory(ProductVariation::class)->create([
-            'price' => 1000
+            'price' => 1000,
         ]);
 
         $this->assertEquals($productVariation->formattedPrice, '£10.00');
@@ -56,7 +56,7 @@ class ProductVariationTest extends TestCase
 
         $productVariation = factory(ProductVariation::class)->create([
             'product_id' => $product->id,
-            'price' => null
+            'price'      => null,
         ]);
 
         $this->assertEquals($product->formattedPrice, $productVariation->formattedPrice);
@@ -66,12 +66,12 @@ class ProductVariationTest extends TestCase
     public function it_can_check_if_the_variation_price_is_different_from_the_product_price()
     {
         $product = factory(Product::class)->create([
-            'price' => 1000
+            'price' => 1000,
         ]);
 
         $productVariation = factory(ProductVariation::class)->create([
             'product_id' => $product->id,
-            'price' => 2000
+            'price'      => 2000,
         ]);
 
         $this->assertTrue($productVariation->priceVaries());
@@ -108,7 +108,7 @@ class ProductVariationTest extends TestCase
 
         $productVariation->stocks()->save(
             factory(Stock::class)->make([
-                'quantity' => $quantity = 10
+                'quantity' => $quantity = 10,
             ])
         );
 
@@ -122,7 +122,7 @@ class ProductVariationTest extends TestCase
 
         $productVariation->stocks()->save(
             factory(Stock::class)->make([
-                'quantity' => 10
+                'quantity' => 10,
             ])
         );
 
@@ -136,13 +136,13 @@ class ProductVariationTest extends TestCase
 
         $productVariation->stocks()->save(
             factory(Stock::class)->make([
-                'quantity' => $quantity = 10
+                'quantity' => $quantity = 10,
             ])
         );
 
         $productVariation->stocks()->save(
             factory(Stock::class)->make([
-                'quantity' => $anotherQuantity = 10
+                'quantity' => $anotherQuantity = 10,
             ])
         );
 
@@ -158,7 +158,7 @@ class ProductVariationTest extends TestCase
 
         $productVariation->stocks()->save(
             factory(Stock::class)->make([
-                'quantity' => 10
+                'quantity' => 10,
             ])
         );
 

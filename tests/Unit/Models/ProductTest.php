@@ -3,11 +3,11 @@
 namespace Tests\Unit\Models;
 
 use App\Cart\Money;
-use Tests\TestCase;
-use App\Models\Product;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\Stock;
+use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
@@ -57,7 +57,7 @@ class ProductTest extends TestCase
     public function it_returns_a_formatted_price()
     {
         $product = factory(Product::class)->create([
-            'price' => 1000
+            'price' => 1000,
         ]);
         $this->assertEquals('£10.00', $product->formattedPrice);
     }
@@ -71,7 +71,7 @@ class ProductTest extends TestCase
 
         $productVariation->stocks()->save(
             factory(Stock::class)->make([
-                'quantity' => $quantitiy = 100
+                'quantity' => $quantitiy = 100,
             ])
         );
 
@@ -87,7 +87,7 @@ class ProductTest extends TestCase
 
         $productVariation->stocks()->save(
             factory(Stock::class)->make([
-                'quantity' => 100
+                'quantity' => 100,
             ])
         );
 
