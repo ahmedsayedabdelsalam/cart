@@ -15,8 +15,8 @@ class ProductResource extends ProductIndexResource
     {
         return array_merge(parent::toArray($request), [
             'stock_count' => $this->stockCount(),
-            'in_stock' => $this->inStock(),
-            'variations' => ProductVariationResource::collection(
+            'in_stock'    => $this->inStock(),
+            'variations'  => ProductVariationResource::collection(
                 $this->variations->groupBy('type.name')
             ),
         ]);

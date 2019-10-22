@@ -2,10 +2,10 @@
 
 namespace App\Cart;
 
-use NumberFormatter;
-use Money\Money as BaseMoney;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\IntlMoneyFormatter;
+use Money\Money as BaseMoney;
+use NumberFormatter;
 
 class Money
 {
@@ -20,7 +20,7 @@ class Money
     {
         return (new IntlMoneyFormatter(
             new NumberFormatter('en_GB', NumberFormatter::CURRENCY),
-            new ISOCurrencies
+            new ISOCurrencies()
         ))->format($this->money);
     }
 
