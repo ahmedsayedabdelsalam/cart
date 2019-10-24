@@ -19,7 +19,7 @@ class ProductScopingTest extends TestCase
 
         $anotherProduct = factory(Product::class)->create();
 
-        $this->get("api/products?category=$category->slug")
+        $this->json('GET', "api/products?category=$category->slug")
             ->assertJsonCount(1, 'data');
     }
 }

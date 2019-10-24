@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         return ProductIndexResource::collection(
-            Product::withScopes($this->scopes())->paginate(10)
+            Product::with('variations.stock')->withScopes($this->scopes())->paginate(10)
         );
     }
 
@@ -44,6 +44,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $product->load('variations.type', 'variations.product', 'variations.stock');
+
         return new ProductResource($product);
     }
 

@@ -12,7 +12,7 @@ class CategoryIndexTest extends TestCase
     {
         $categories = factory(Category::class, 2)->create();
 
-        $this->get('api/categories')
+        $this->json('GET', 'api/categories')
             ->assertJsonFragment(
                 [
                     'slug' => $categories->get(0)->slug,
@@ -32,7 +32,7 @@ class CategoryIndexTest extends TestCase
             factory(Category::class)->make()
         );
 
-        $this->get('api/categories')
+        $this->json('GET', 'api/categories')
             ->assertJsonCount(1, 'data');
     }
 
@@ -47,7 +47,7 @@ class CategoryIndexTest extends TestCase
             'order' => 1,
         ]);
 
-        $response = $this->get('api/categories');
+        $response = $this->json('GET', 'api/categories');
 
         $response->assertSeeInOrder([
             $anotherCategory->slug, $category->slug,
