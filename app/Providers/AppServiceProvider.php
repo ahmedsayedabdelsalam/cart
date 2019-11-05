@@ -24,8 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->singleton(Cart::class, function($app) {
-            dd(auth('api')->user());
+        $this->app->singleton(Cart::class, function ($app) {
             return new Cart(auth('api')->user());
         });
     }

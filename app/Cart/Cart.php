@@ -13,19 +13,38 @@ class Cart
         $this->user = $user;
     }
 
-    public function add($products) 
+    public function add($products)
     {
         $this->user->cart()->syncWithoutDetaching(
             $this->getStorePayload($products)
         );
     }
 
+    public function update(int $productId, int $quanity)
+    {
+        $this->user->cart()->updateExistingPivot(
+            $productId,
+            [
+                'quantity' => $quanity
+            ]
+        );
+    }
+
     protected function getStorePayload($products)
     {
-        return collect($products)->keyBy('id')->map(function($product) {
+        return collect($products)->keyBy('id')->map(function ($product) {
             return [
-                'quantity' => $product['quantity']
+                'quantity' => $product['quantity'] + $this->getCurrentQuantity($product['id'])
             ];
         })->toArray();
+    }
+
+    protected function getCurrentQuantity(int $productId)
+    {
+        if ($product = $this->user->cart->where('id', $productId)->first()) {
+            return $product->pivot->quantity;
+        }
+
+        return 0;
     }
 }

@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Cart;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CartStoreRequest;
+use App\Http\Requests\Api\CartUpdateRequest;
+use App\Models\ProductVariation;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    protected $cart;
-    
-    public function __construct(\App\Cart\Cart $cart)
+    public function __construct()
     {
         $this->middleware('auth:api');
-        $this->cart = $cart;
     }
     /**
      * Display a listing of the resource.
@@ -42,20 +40,18 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CartStoreRequest $request)
+    public function store(CartStoreRequest $request, \App\Cart\Cart $cart)
     {
-        $products = $request->products;
-
-        $this->cart->add($products);
+        $cart->add($request->products);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cart  $cart
+     * @param  ProductVariation $productVariation
      * @return \Illuminate\Http\Response
      */
-    public function show(Cart $cart)
+    public function show(ProductVariation $productVariation)
     {
         //
     }
@@ -63,10 +59,10 @@ class CartController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cart  $cart
+     * @param  ProductVariation $productVariation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cart $cart)
+    public function edit(ProductVariation $productVariation)
     {
         //
     }
@@ -75,21 +71,21 @@ class CartController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cart  $cart
+     * @param  ProductVariation $productVariation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cart $cart)
+    public function update(CartUpdateRequest $request, ProductVariation $productVariation, \App\Cart\Cart $cart)
     {
-        //
+        $cart->update($productVariation->id, $request->quantity);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cart  $cart
+     * @param  ProductVariation $productVariation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart $cart)
+    public function destroy(ProductVariation $productVariation)
     {
         //
     }
