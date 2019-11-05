@@ -30,6 +30,11 @@ class Cart
         );
     }
 
+    public function delete(int $productId)
+    {
+        $this->user->cart()->detach($productId);
+    }
+
     protected function getStorePayload($products)
     {
         return collect($products)->keyBy('id')->map(function ($product) {

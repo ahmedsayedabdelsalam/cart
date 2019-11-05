@@ -85,8 +85,8 @@ class CartController extends Controller
      * @param  ProductVariation $productVariation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductVariation $productVariation)
+    public function destroy(ProductVariation $productVariation, \App\Cart\Cart $cart)
     {
-        //
+        $cart->delete($productVariation->id);
     }
 }
