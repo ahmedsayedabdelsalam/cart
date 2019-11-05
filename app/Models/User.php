@@ -51,4 +51,11 @@ class User extends Authenticatable implements JWTSubject
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function cart()
+    {
+        return $this->belongsToMany(ProductVariation::class, 'cart_user')
+            ->withPivot('quantity')
+            ->withTimestamps();
+    }
 }

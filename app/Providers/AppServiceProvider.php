@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Cart\Cart;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->singleton(Cart::class, function($app) {
+            dd(auth('api')->user());
+            return new Cart(auth('api')->user());
+        });
     }
 }
